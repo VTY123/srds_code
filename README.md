@@ -7,14 +7,14 @@ Some code for backup or prototype: test
 Github link:
 
 
-#Installation
+##Installation
 Download and install the pbc library
 https://crypto.stanford.edu/pbc/download.html
 
  Make sure example code can be run.
 
 
-#How to compile codes and create environment  for simulation 
+##How to compile codes and create environment  for simulation 
 
 A simple approach:  delete all files in the example folder. Add all our files to it. 
 
@@ -46,7 +46,7 @@ add: test_ns_ibe_waters_addClient_SOURCES = test_ns_ibe_waters_addClient.c sim_n
 test_mst_ibe_addClient_wo_vf_SOURCES = test_mst_ibe_waters_addClient_wo_vf.c sim_mst_ibe.c waters_ibe.h waters_ibe.c file_process.c
 test_mst_ibe_addClient_w_vf_SOURCES = test_mst_ibe_waters_addClient_w_vf.c sim_mst_ibe.c  waters_ibe.h waters_ibe.c file_process.c
 
-#How to run the code
+##How to run the code
 
 It is like other examples in PBC library. 
 
@@ -55,7 +55,7 @@ Command: ./test_ns_ibe_waters ../param/a.param
 
 
 
-#How to plot the data
+##How to plot the data
 Run the bash script test.sh for simulation
 To plot the data, run with python scripts as follows
 python3 python_scripts/plt_ns_ibe.py
