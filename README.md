@@ -46,7 +46,7 @@ e. add: test_ns_ibe_waters_addClient_SOURCES = test_ns_ibe_waters_addClient.c si
 test_mst_ibe_addClient_wo_vf_SOURCES = test_mst_ibe_waters_addClient_wo_vf.c sim_mst_ibe.c waters_ibe.h waters_ibe.c file_process.c
 test_mst_ibe_addClient_w_vf_SOURCES = test_mst_ibe_waters_addClient_w_vf.c sim_mst_ibe.c  waters_ibe.h waters_ibe.c file_process.c
 
-##How to run the code
+How to run the code
 
 It is like other examples in PBC library. 
 
@@ -61,11 +61,10 @@ To plot the data, run with python scripts as follows
 python3 python_scripts/plt_ns_ibe.py
 Plot the data of ns-ibe
 python3 python_scripts/plt_mst_ibe.py
-Plot the data of mst-ibe
+Plot the data of adding client.
 python3 python_scripts/plt_addclient.py
-Plot the data of 
+Plot the multithread data
 python3 python_scripts/plt_multithread_waters.py
-Plot 
 
 
 
