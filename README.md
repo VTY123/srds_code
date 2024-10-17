@@ -16,7 +16,6 @@ https://crypto.stanford.edu/pbc/download.html
 
 How to compile codes and create environment  for simulation 
 
-A simple approach:  delete all files in the example folder. Add all our files to it. 
 
 A detailed approach:
 
@@ -34,25 +33,25 @@ mst_ibe_data_addClient_w_vf_data
 mst_ibe_data_addClient_wo_vf_data
 multithreads_data
 
-3. Add following to the Makefile.am
-a. Add following to noinst_PROGRAMS variable: test_ns_ibe_waters test_ns_ibe_waters_addClient test_mst_ibe_waters test_mst_ibe_addClient_wo_vf test_mst_ibe_addClient_w_vf test_waters_multithreads
+3. Add following to the Makefile.am (or simply copy our Makefile.am)
+ a. Add following to noinst_PROGRAMS = test_ns_ibe_waters test_ns_ibe_waters_addClient test_mst_ibe_waters test_mst_ibe_addClient_wo_vf test_mst_ibe_addClient_w_vf test_waters_multithreads
 
-b. add: test_waters_multithreads_SOURCES = waters_ibe.h waters_ibe.c test_waters_threads_keyder.c file_process.c
-c. Add: test_ns_ibe_waters_SOURCES = test_ns_ibe_waters.c sim_ns_ibe.c waters_ibe.h waters_ibe.c file_process.c
+ b. add: test_waters_multithreads_SOURCES = waters_ibe.h waters_ibe.c test_waters_threads_keyder.c file_process.c
+ c. Add: test_ns_ibe_waters_SOURCES = test_ns_ibe_waters.c sim_ns_ibe.c waters_ibe.h waters_ibe.c file_process.c
 
-d. add following:test_mst_ibe_waters_SOURCES = test_mst_ibe_waters.c  sim_mst_ibe.c waters_ibe.h waters_ibe.c  file_process.c
+ d. add following:test_mst_ibe_waters_SOURCES = test_mst_ibe_waters.c  sim_mst_ibe.c waters_ibe.h waters_ibe.c  file_process.c
 
-e. add: test_ns_ibe_waters_addClient_SOURCES = test_ns_ibe_waters_addClient.c sim_ns_ibe.c waters_ibe.h waters_ibe.c file_process.c
-test_mst_ibe_addClient_wo_vf_SOURCES = test_mst_ibe_waters_addClient_wo_vf.c sim_mst_ibe.c waters_ibe.h waters_ibe.c file_process.c
-test_mst_ibe_addClient_w_vf_SOURCES = test_mst_ibe_waters_addClient_w_vf.c sim_mst_ibe.c  waters_ibe.h waters_ibe.c file_process.c
+ e. add: test_ns_ibe_waters_addClient_SOURCES = test_ns_ibe_waters_addClient.c sim_ns_ibe.c waters_ibe.h waters_ibe.c file_process.c
+ 
+ f.test_mst_ibe_addClient_wo_vf_SOURCES = test_mst_ibe_waters_addClient_wo_vf.c sim_mst_ibe.c waters_ibe.h waters_ibe.c file_process.c
+
+ g.test_mst_ibe_addClient_w_vf_SOURCES = test_mst_ibe_waters_addClient_w_vf.c sim_mst_ibe.c  waters_ibe.h waters_ibe.c file_process.c
 
 How to run the code
 
 It is like other examples in PBC library. 
 
 Command: ./test_ns_ibe_waters ../param/a.param
-
-
 
 
 How to plot the data
