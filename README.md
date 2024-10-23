@@ -19,7 +19,7 @@ How to compile codes and create environment  for simulation
 
 A detailed approach:
 
-1. Copy following to the example folder (with command cp *.c ./ and cp *.h ./)
+1. Copy following to the example folder (with command cp *.c ./ and cp *.h ./ and cp *.sh ./)
 
 clean_data.sh
 file_process.c file_process.h
