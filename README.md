@@ -25,7 +25,7 @@ test_ns_ibe.c ,test_mst_ibe.c
 sim_ns_ibe.c, sim_mst_ibe.c
 test.sh
 
-2. Create directories
+2. Create directories (with mkdir)
 ns_ibe_data
 ns_ibe_addClient_data
 mst_ibe_data
@@ -34,7 +34,7 @@ mst_ibe_data_addClient_wo_vf_data
 multithreads_data
 
 3. Add following to the Makefile.am (or simply copy our Makefile.am)
- a. Add following to noinst_PROGRAMS = test_ns_ibe_waters test_ns_ibe_waters_addClient test_mst_ibe_waters test_mst_ibe_addClient_wo_vf test_mst_ibe_addClient_w_vf test_waters_multithreads
+ a. Add following to noinst_PROGRAMS: noinst_PROGRAMS = test_ns_ibe_waters test_ns_ibe_waters_addClient test_mst_ibe_waters test_mst_ibe_addClient_wo_vf test_mst_ibe_addClient_w_vf test_waters_multithreads
 
  b. add: test_waters_multithreads_SOURCES = waters_ibe.h waters_ibe.c test_waters_threads_keyder.c file_process.c
  c. Add: test_ns_ibe_waters_SOURCES = test_ns_ibe_waters.c sim_ns_ibe.c waters_ibe.h waters_ibe.c file_process.c
