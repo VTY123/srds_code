@@ -67,7 +67,7 @@ void *th_keyder(void *args)
 	return NULL;
 }
 
-void sim_parallel(pp pp, int num_thread, int num_client)
+void sim_parallel(public_parameters pp, int num_thread, int num_client)
 {
 //num_thread is the number of threads WILL BE CREATED.
 //so total number of threads is num_thread + 1.
@@ -210,7 +210,7 @@ void sim_parallel(pp pp, int num_thread, int num_client)
 
 int main(int argc, char **argv)
 {
-	pp pp = malloc(sizeof(struct public_parameters));        
+	public_parameters pp = malloc(sizeof(struct public_parameters));        
 	pbc_demo_pairing_init(pp->pairing, argc, argv);
 	waters_commonsetup(pp);
 	for (int j = 100; j <= 1000; j += 100)

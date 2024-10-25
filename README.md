@@ -19,23 +19,13 @@ How to compile codes and create environment  for simulation
 
 A detailed approach:
 
-1. Copy following to the example folder (with command cp *.c ./ and cp *.h ./ and cp *.sh ./)
+1. Copy following to the example folder
+waters_ibe.c,waters_ibe.h,sim
+test_ns_ibe.c ,test_mst_ibe.c
+sim_ns_ibe.c, sim_mst_ibe.c
+test.sh
 
-clean_data.sh
-file_process.c file_process.h
-sim_mst_ibe.c sim_mst_ibe.h
-sim_ns_ibe.c sim_ns_ibe.h
-test_mst_ibe_waters.c test_mst_ibe_waters_addClient_w_vf.c
-test_mst_ibe_waters_addClient_wo_vf.c
-test_mst_ibe_waters_add_client_exclude_vf.c
-test_mst_ns_ibe.sh
-test_ns_ibe_waters.c
-test_ns_ibe_waters_addClient.c
-test_waters_threads_keyder.c
-waters_ibe.c,waters_ibe.h,
-zk.c
-
-3. Create directories (with mkdir)
+2. Create directories
 ns_ibe_data
 ns_ibe_addClient_data
 mst_ibe_data
@@ -43,8 +33,8 @@ mst_ibe_data_addClient_w_vf_data
 mst_ibe_data_addClient_wo_vf_data
 multithreads_data
 
-4. Add following to the Makefile.am (or simply copy our Makefile.am)
- a. Add following to noinst_PROGRAMS: noinst_PROGRAMS = test_ns_ibe_waters test_ns_ibe_waters_addClient test_mst_ibe_waters test_mst_ibe_addClient_wo_vf test_mst_ibe_addClient_w_vf test_waters_multithreads
+3. Add following to the Makefile.am (or simply copy our Makefile.am)
+ a. Add following to noinst_PROGRAMS = test_ns_ibe_waters test_ns_ibe_waters_addClient test_mst_ibe_waters test_mst_ibe_addClient_wo_vf test_mst_ibe_addClient_w_vf test_waters_multithreads
 
  b. add: test_waters_multithreads_SOURCES = waters_ibe.h waters_ibe.c test_waters_threads_keyder.c file_process.c
  c. Add: test_ns_ibe_waters_SOURCES = test_ns_ibe_waters.c sim_ns_ibe.c waters_ibe.h waters_ibe.c file_process.c

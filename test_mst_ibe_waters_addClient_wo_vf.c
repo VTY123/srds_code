@@ -11,7 +11,7 @@
 
 int main(int argc, char **argv)
 {
-	pp pp = malloc(sizeof(struct public_parameters));
+	public_parameters pp = malloc(sizeof(struct public_parameters));
 	pbc_demo_pairing_init(pp->pairing, argc, argv);
 	waters_commonsetup(pp);
 

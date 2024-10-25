@@ -73,7 +73,7 @@ int waters_pkVerify(element_t w,element_t T,element_t c,element_t P, element_t P
 }
 
 
-void waters_commonsetup(pp pp){
+void waters_commonsetup(public_parameters pp){
 	//initialize the common public parameters for Waters IBE
 	element_init_G1(pp->g,pp->pairing);
 	element_random(pp->g);	
@@ -90,7 +90,7 @@ void waters_commonsetup(pp pp){
 	}	
 }
 
-void waters_keysetup(pp pp, element_t sk,element_t g1){
+void waters_keysetup(public_parameters pp, element_t sk,element_t g1){
 	//randomly sample the secret key 
 	//and output it and its related public parameter 
 	element_init_Zr(sk,pp->pairing);
@@ -99,7 +99,7 @@ void waters_keysetup(pp pp, element_t sk,element_t g1){
 	element_mul_zn(g1,pp->g,sk);
 }
 
-void waters_keyder(dk dk, pp pp,element_t msk, int id){
+void waters_keyder(dk dk, public_parameters pp,element_t msk, int id){
 	//KeyDer algorithm of Waters IBE
 	element_t r;
 	element_init_Zr(r,pp->pairing);
@@ -137,7 +137,7 @@ void waters_kCombine(dk dkf,dk dk1,dk dk2){
 	element_add(dkf[1],dk1[1],dk2[1]);
 }
 
-void waters_enc(ct CT, pp pp, element_t g1,int id, element_t M ){
+void waters_enc(ct CT, public_parameters pp, element_t g1,int id, element_t M ){
 	element_t t;
 	element_init_Zr(t,pp->pairing);
 	element_random(t);
@@ -159,7 +159,7 @@ void waters_enc(ct CT, pp pp, element_t g1,int id, element_t M ){
 	element_mul_zn(CT[2],CT[2],t);	
 }
 
-void waters_dec(element_t M, pp pp, ct CT, dk dk){
+void waters_dec(element_t M, public_parameters pp, ct CT, dk dk){
 	element_t t0,t1;
 	element_init_GT(t0,pp->pairing);
 	element_init_GT(t1,pp->pairing);
@@ -178,7 +178,7 @@ void waters_dec(element_t M, pp pp, ct CT, dk dk){
 	element_clear(t1);
 }
 
-int waters_enc_dec(pp pp, element_t g1, int id, dk dk){
+int waters_enc_dec(public_parameters pp, element_t g1, int id, dk dk){
 	element_t M;
 	element_init_GT(M,pp->pairing);
 	element_random(M);
@@ -199,7 +199,7 @@ int waters_enc_dec(pp pp, element_t g1, int id, dk dk){
 	return ret;
 }
 
-int waters_dkVerify(pp pp,element_t g1 ,int id,dk dk){
+int waters_dkVerify(public_parameters pp,element_t g1 ,int id,dk dk){
 	//verifying algorithm for decryption keys 
 
 	element_t t1;
@@ -237,7 +237,7 @@ int waters_dkVerify(pp pp,element_t g1 ,int id,dk dk){
 
 }
 
-void waters_clear_pp(pp pp){
+void waters_clear_pp(public_parameters pp){
 	// clean up variables of public parameters
 	element_clear(pp->g);
 	element_clear(pp->g2);

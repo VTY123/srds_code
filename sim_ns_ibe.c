@@ -1,6 +1,6 @@
 #include "./sim_ns_ibe.h"
 
-void sim_ns_ibe(pp pp, int num_client,char* dir)
+void sim_ns_ibe(public_parameters pp, int num_client,char* dir)
 {
 	char pth[128];
 	strcpy(pth,dir);

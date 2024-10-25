@@ -19,7 +19,7 @@ struct public_parameters{
 	element_t* U;
 	pairing_t pairing;
 };
-typedef struct public_parameters* pp;
+typedef struct public_parameters* public_parameters;
 
 typedef element_t dk[2];
 typedef element_t ct[3];
@@ -28,25 +28,25 @@ void zk_proof(element_t s,element_t P,element_t P1,element_t T,element_t c, elem
 
 int waters_pkVerify(element_t w,element_t T,element_t c,element_t P, element_t P1,pairing_t pairing);
 
-void waters_commonsetup(pp pp);
+void waters_commonsetup(public_parameters pp);
 
-void waters_keysetup(pp pp, element_t sk, element_t g1);
+void waters_keysetup(public_parameters pp, element_t sk, element_t g1);
 
-void waters_keyder(dk dk, pp pp,element_t sk, int id);
+void waters_keyder(dk dk, public_parameters pp,element_t sk, int id);
 
 void waters_pCombine(element_t g1r,element_t g1a,element_t g1b); //pCombine
 
 void waters_kCombine(dk dkf,dk dk1,dk dk2);//kCombine
 
-void waters_enc(ct CT, pp pp,element_t g1, int id, element_t M);//unsigned char* M);
+void waters_enc(ct CT, public_parameters pp,element_t g1, int id, element_t M);//unsigned char* M);
 
-void waters_dec(element_t M, pp pp, ct C, dk dk);
+void waters_dec(element_t M, public_parameters pp, ct C, dk dk);
 
-int waters_enc_dec( pp pp, element_t g1,int id, dk dk);
+int waters_enc_dec( public_parameters pp, element_t g1,int id, dk dk);
 
-int waters_dkVerify(pp pp,element_t g1, int id,dk dk);
+int waters_dkVerify(public_parameters pp,element_t g1, int id,dk dk);
 
-void waters_clear_pp(pp pp);
+void waters_clear_pp(public_parameters pp);
 
 
 #endif

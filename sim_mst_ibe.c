@@ -1,6 +1,6 @@
 #include "./sim_mst_ibe.h"
 
-void sim_mst_ibe(pp pp, int num_client, int verification_flag, char *dir)
+void sim_mst_ibe(public_parameters pp, int num_client, int verification_flag, char *dir)
 {
 	char pth[128];
 	strcpy(pth, dir);

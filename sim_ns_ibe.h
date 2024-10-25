@@ -28,6 +28,6 @@
 */
 
 
-void sim_ns_ibe(pp pp, int num_client,char* dir);
+void sim_ns_ibe(public_parameters pp, int num_client,char* dir);
 
 #endif

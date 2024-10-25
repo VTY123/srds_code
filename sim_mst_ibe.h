@@ -21,6 +21,6 @@
 // We separate the computation of key derivation
 // and the computation of the kCombine for benchmark and observation.
 
-void sim_mst_ibe(pp pp, int num_client, int verification_flag, char* dir);
+void sim_mst_ibe(public_parameters pp, int num_client, int verification_flag, char* dir);
 
 #endif
