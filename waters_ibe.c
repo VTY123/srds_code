@@ -99,28 +99,28 @@ void waters_keysetup(public_parameters pp, element_t sk,element_t g1){
 	element_mul_zn(g1,pp->g,sk);
 }
 
-void waters_keyder(dk dk, public_parameters pp,element_t msk, int id){
+void waters_keyder(dk dk1, public_parameters pp,element_t msk, int id){
 	//KeyDer algorithm of Waters IBE
 	element_t r;
 	element_init_Zr(r,pp->pairing);
 	element_random(r);
 
-	element_init_G2(dk[0],pp->pairing);
-	element_set(dk[0],pp->uu);
+	element_init_G2(dk1[0],pp->pairing);
+	element_set(dk1[0],pp->uu);
 	for (int i = 0; i < WATERS_ID_BITS;i++){
 		if ((1 << i) & id){
-			element_add(dk[0],dk[0],pp->U[i]);	
+			element_add(dk1[0],dk1[0],pp->U[i]);	
 		}
 	}
-	element_mul_zn(dk[0],dk[0],r);
+	element_mul_zn(dk1[0],dk1[0],r);
 
 	element_t g2a;
 	element_init_G2(g2a,pp->pairing);
 	element_mul_zn(g2a,pp->g2,msk);
-	element_add(dk[0],dk[0],g2a);
+	element_add(dk1[0],dk1[0],g2a);
 
-	element_init_G1(dk[1],pp->pairing);
-	element_mul_zn(dk[1],pp->g,r);
+	element_init_G1(dk1[1],pp->pairing);
+	element_mul_zn(dk1[1],pp->g,r);
 
 	element_clear(r);
 	element_clear(g2a);
@@ -159,14 +159,14 @@ void waters_enc(ct CT, public_parameters pp, element_t g1,int id, element_t M ){
 	element_mul_zn(CT[2],CT[2],t);	
 }
 
-void waters_dec(element_t M, public_parameters pp, ct CT, dk dk){
+void waters_dec(element_t M, public_parameters pp, ct CT, dk dk1){
 	element_t t0,t1;
 	element_init_GT(t0,pp->pairing);
 	element_init_GT(t1,pp->pairing);
-	element_pairing(t0,dk[1],CT[2]);
+	element_pairing(t0,dk1[1],CT[2]);
 
 	element_neg(CT[1],CT[1]);
-	element_pairing(t1,CT[1],dk[0]);
+	element_pairing(t1,CT[1],dk1[0]);
 	element_add(t0,t1,t0);
 
 	element_add(CT[0],CT[0],t0);	
@@ -178,7 +178,7 @@ void waters_dec(element_t M, public_parameters pp, ct CT, dk dk){
 	element_clear(t1);
 }
 
-int waters_enc_dec(public_parameters pp, element_t g1, int id, dk dk){
+int waters_enc_dec(public_parameters pp, element_t g1, int id, dk dk1){
 	element_t M;
 	element_init_GT(M,pp->pairing);
 	element_random(M);
@@ -186,7 +186,7 @@ int waters_enc_dec(public_parameters pp, element_t g1, int id, dk dk){
     waters_enc(CT, pp, g1, id, M);
 
 	element_t CM;
-    waters_dec(CM, pp, CT, dk);
+    waters_dec(CM, pp, CT, dk1);
 
 	for (int i =0; i < 3;i++){
 		element_clear(CT[i]);
@@ -199,7 +199,7 @@ int waters_enc_dec(public_parameters pp, element_t g1, int id, dk dk){
 	return ret;
 }
 
-int waters_dkVerify(public_parameters pp,element_t g1 ,int id,dk dk){
+int waters_dkVerify(public_parameters pp,element_t g1 ,int id,dk dk1){
 	//verifying algorithm for decryption keys 
 
 	element_t t1;
@@ -214,11 +214,11 @@ int waters_dkVerify(public_parameters pp,element_t g1 ,int id,dk dk){
 	
 	element_t tt;
 	element_init_GT(tt,pp->pairing);
-	element_pairing(tt,dk[1],t1);
+	element_pairing(tt,dk1[1],t1);
 
 	element_t t0;
 	element_init_GT(t0,pp->pairing);
-	element_pairing(t0,pp->g,dk[0]);
+	element_pairing(t0,pp->g,dk1[0]);
 	element_add(tt,tt,t0);
 
 	element_t p;

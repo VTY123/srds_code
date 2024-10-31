@@ -32,7 +32,7 @@ void waters_commonsetup(public_parameters pp);
 
 void waters_keysetup(public_parameters pp, element_t sk, element_t g1);
 
-void waters_keyder(dk dk, public_parameters pp,element_t sk, int id);
+void waters_keyder(dk dk1, public_parameters pp,element_t sk, int id);
 
 void waters_pCombine(element_t g1r,element_t g1a,element_t g1b); //pCombine
 
@@ -40,11 +40,11 @@ void waters_kCombine(dk dkf,dk dk1,dk dk2);//kCombine
 
 void waters_enc(ct CT, public_parameters pp,element_t g1, int id, element_t M);//unsigned char* M);
 
-void waters_dec(element_t M, public_parameters pp, ct C, dk dk);
+void waters_dec(element_t M, public_parameters pp, ct C, dk dk1);
 
-int waters_enc_dec( public_parameters pp, element_t g1,int id, dk dk);
+int waters_enc_dec( public_parameters pp, element_t g1,int id, dk dk1);
 
-int waters_dkVerify(public_parameters pp,element_t g1, int id,dk dk);
+int waters_dkVerify(public_parameters pp,element_t g1, int id,dk dk1);
 
 void waters_clear_pp(public_parameters pp);
 
