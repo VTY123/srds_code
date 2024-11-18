@@ -1,5 +1,7 @@
 
-This source code is for the SRDS paper. In other words, it is for prototyping and simulation only.
+This source code is for the SRDS 2024 paper: Efficient Identity-based Encryption with Minimal Server Trust. 
+
+In other words, it is for prototyping and simulation only.
 
 
 Some code for backup or prototype: test
