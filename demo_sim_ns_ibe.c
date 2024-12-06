@@ -1,3 +1,5 @@
+// This is a sample run of the ns-ibe scheme 
+//  (no server key derivation identity-based encryption). 
 #include "./demo_sim_ns_ibe.h"
 
 void demo_ns_ibe(public_parameters pp, int num_client, char *dir)
@@ -9,10 +11,12 @@ void demo_ns_ibe(public_parameters pp, int num_client, char *dir)
 	element_t *clients_sk = malloc(sizeof(element_t) * num_client);
 	element_t *clients_g1 = malloc(sizeof(element_t) * num_client);
 
+	element_printf("Users' setup and computation of contribution decryption keys \n");
+
 	for (int i = 0; i < num_client; i++)
 	{
 		waters_keysetup(pp, clients_sk[i], clients_g1[i]);
-		element_printf("the %d-th user runs key setup algorithm\n", i);
+		element_printf(" the %d-th user runs key setup algorithm\n", i);
 	}
 
 	// decryption keys
@@ -29,11 +33,11 @@ void demo_ns_ibe(public_parameters pp, int num_client, char *dir)
 		for (int id = 1; id <= num_client; id++)
 		{
 			waters_keyder(clients_dks[i][id - 1], pp, clients_sk[i], id);
-			element_printf("the %d-th user derives key for the %d-th user\n", i, id);
+			element_printf(" the %d-th user derives key for the %d-th user\n", i, id);
 		}
 	}
 
-	element_printf("users exchanges for contributions to public parameters and decryption keys\n");
+	element_printf("Users' exchanges for contributions to public parameters and decryption keys\n");
 
 	// benchmark the simulation about receivers run pCombine
 	element_t *clients_cpp = malloc(sizeof(element_t) * num_client);
@@ -43,7 +47,7 @@ void demo_ns_ibe(public_parameters pp, int num_client, char *dir)
 		element_set0(clients_cpp[i]);
 		for (int j = 0; j < num_client; j++)
 		{
-			element_printf("the %d-th user combines the constribution to public parameter from the %d-th user\n", i, j);
+			element_printf(" the %d-th user combines the constribution to public parameter from the %d-th user\n", i, j);
 			waters_pCombine(clients_cpp[i], clients_cpp[i], clients_g1[j]);
 		}
 	}
@@ -62,7 +66,7 @@ void demo_ns_ibe(public_parameters pp, int num_client, char *dir)
 		element_set(decryption_keys[i][1], clients_dks[0][i][1]);
 		for (int j = 1; j < num_client; j++)
 		{
-			element_printf("the %d-th user combine the constribution to decryption key from the %d-th user\n", i, j);
+			element_printf(" the %d-th user combines the constribution to decryption key from the %d-th user\n", i, j);
 			waters_kCombine(decryption_keys[i], decryption_keys[i], clients_dks[j][i]);
 		}
 	}
@@ -74,17 +78,20 @@ void demo_ns_ibe(public_parameters pp, int num_client, char *dir)
 	strcpy((char *)str, "hello");
 
 	element_from_bytes(M, str);
+	element_printf("Message encryption \n");
 
 	ct CT;
 	for (int test_id = 1; test_id <= num_client; test_id++)
 	{
+		element_printf(" message encrypted is %s\n", str);
 		waters_enc(CT, pp, clients_cpp[test_id - 1], test_id, M);
 		element_t DM;
 		waters_dec(DM, pp, CT, decryption_keys[test_id - 1]);
 
 		element_to_bytes(str, DM);
 
-		element_printf(" decrypted message is %s\n", str);
+		element_printf(" client n.%d\n",test_id);
+		element_printf(" message decrypted is %s\n", str);
 	}
 
 	/* clean up code */

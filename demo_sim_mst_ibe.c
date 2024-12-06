@@ -1,3 +1,5 @@
+// This is a sample run of the mst-ibe scheme
+//  (minimum server trust key derivation identity-based encryption).
 #include "./demo_sim_mst_ibe.h"
 
 void demo_mst_ibe(public_parameters pp, int num_client, int verification_flag, char *dir)
@@ -15,13 +17,15 @@ void demo_mst_ibe(public_parameters pp, int num_client, int verification_flag, c
 	element_t *cptr = malloc(num_client * sizeof(element_t));
 	element_t *wptr = malloc(num_client * sizeof(element_t));
 
+	element_printf("Users' setup and computation of contribution decryption keys \n");
+
 	// benchmark the total time of keysetup algorithm
 
 	for (int i = 0; i < num_client; i++)
 	{
 		waters_keysetup(pp, clients_sk[i], clients_g1[i]);
 		zk_proof(clients_sk[i], pp->g, clients_g1[i], Tptr[i], cptr[i], wptr[i], pp->pairing);
-		element_printf("the %d-th user generates its secret key, public parameter, and zero-knowledge proof\n",i);
+		element_printf(" the %d-th user generates its secret key, public parameter, and zero-knowledge proof\n",i);
 	}
 
 
@@ -29,7 +33,7 @@ void demo_mst_ibe(public_parameters pp, int num_client, int verification_flag, c
 	// benchmark pkVerify
 	for (int i = 0; i < num_client; i++)
 	{
-		element_printf("the server verifies the %d-th user's public parameter\n",i);
+		element_printf(" the server verifies the %d-th user's public parameter\n",i);
 		int t = waters_pkVerify(wptr[i], Tptr[i], cptr[i], pp->g, clients_g1[i], pp->pairing);
 		if (t != 0)
 		{
@@ -51,7 +55,7 @@ void demo_mst_ibe(public_parameters pp, int num_client, int verification_flag, c
 		for (int id = 1; id <= num_client; id++)
 		{
 			waters_keyder(clients_dks[i][id - 1], pp, clients_sk[i], id);
-			element_printf("the %d-th user derives a decryption key for the user with id = %d\n",i,id-1,id);
+			element_printf(" the %d-th user derives a decryption key for the user with id = %d\n",i,id-1,id);
 		}
 	}
 
@@ -74,17 +78,17 @@ void demo_mst_ibe(public_parameters pp, int num_client, int verification_flag, c
 	// the trusted repository server computation BEGIN
 	// benchmark pCombine
 
-	element_printf("simulating the computation by the server \n");
+	element_printf("Simulating the computation by the server \n");
 
 	element_t g1;
 	element_init_G1(g1, pp->pairing);
 
 	element_set(g1, clients_g1[0]);
-	element_printf("the server combines the contribution to public paramter by the %d-th user\n",0);
+	element_printf(" the server combines the contribution to public paramter by the %d-th user\n",0);
 	for (int i = 1; i < num_client; i++)
 	{
 		waters_pCombine(g1, g1, clients_g1[i]);
-		element_printf("the server combines the contribution to public paramter by the %d-th user\n",i);
+		element_printf(" the server combines the contribution to public paramter by the %d-th user\n",i);
 	}
 
 
@@ -102,7 +106,7 @@ void demo_mst_ibe(public_parameters pp, int num_client, int verification_flag, c
 		for (int j = 1; j < num_client; j++)
 		{
 			waters_kCombine(decryption_keys[i], decryption_keys[i], clients_dks[j][i]);
-			element_printf("combining the decryption key for %d-th user from %d-th user\n",i,j);
+			element_printf(" combining the decryption key for %d-th user from %d-th user\n",i,j);
 		}
 	}
 
@@ -112,15 +116,18 @@ void demo_mst_ibe(public_parameters pp, int num_client, int verification_flag, c
 	strcpy((char *)str, "hello");
 
 	element_from_bytes(M, str);
+        element_printf("Message encryption \n");
+
 
 	ct CT;
 	for (int test_id = 1; test_id <= num_client; test_id++)
 	{
-		element_printf("encrypt the message for the user with id = %d\n",test_id);
+		element_printf(" encrypted message is %s\n", str);
+		element_printf(" encrypt the message for the user with id = %d\n",test_id);
 		waters_enc(CT, pp, g1, test_id, M);
 		element_t DM;
 		waters_dec(DM, pp, CT, decryption_keys[test_id - 1]);
-		element_printf("decrypt the cipheretext\n");
+		element_printf(" decrypt the ciphertext\n");
 		element_to_bytes(str, DM);
 		element_printf(" decrypted message is %s\n", str);
 	}
