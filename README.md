@@ -1,4 +1,6 @@
 
+<h1 align="center">ns-IBE/mst-IBE</h1>
+
 This source code is for the SRDS 2024 paper: Efficient Identity-based Encryption with Minimal Server Trust. 
 
 In other words, it is for prototyping and simulation only.
